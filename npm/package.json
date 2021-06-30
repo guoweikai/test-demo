@@ -1,0 +1,12 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gwk1=production  node src/abc.js g=1 b=2 c=3 && node src/bbb.js d=4 f=5",
+    "start": "npm run dev "
+  },
+  "author": "",
+  "license": "ISC"
+}
