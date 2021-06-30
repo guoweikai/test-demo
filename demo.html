@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.10.1/dist/ffmpeg.min.js"></script>
+    <script src="https://cdn.webrtc-experiment.com/MediaStreamRecorder.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- <script src=""></script> -->
+    <p>录制的</p>
+    <video id="player" controls></video>
+    <br>
+    <br>
+    <button id="start">开始</button>
+    <button id="stop">结束</button>
+    <!-- <button id="下载">下载</button> -->
+    <br>
+    <p>m3u8 文件</p>
+    <div id="m3u8"></div>
+    <script>
+        let loaded = false, mediaRecorder, m3u8FileArray = [], isStop = false;
+        // 录制
+        async function streamRecord(stream) {
+            mediaRecorder = new MediaStreamRecorder(stream);
+            mediaRecorder.mimeType = 'video/webm';
+            const { createFFmpeg, fetchFile } = FFmpeg;
+            // const ffmpeg = createFFmpeg({ log: true });
+            const ffmpeg = createFFmpeg({ log: true });
+            try {
+                await ffmpeg.load();
+            } catch (error) {
+                console.log("ffmpeg load error", error)
+            }
+            mediaRecorder.ondataavailable = function (blob) {
+                const video = document.getElementById('player');
+                var blobURL = URL.createObjectURL(blob, { type: 'video/webm' });
+                video.src = blobURL
+                // 转格式
+                if (!isStop) {
+                    transcode(blobURL, createFFmpeg, fetchFile, ffmpeg)
+                }
+
+            }
+        }
+        // 转格式
+        async function transcode(videoURL, createFFmpeg, fetchFile, ffmpeg) {
+            const name = "video.webm";
+            ffmpeg.FS('writeFile', name, await fetchFile(videoURL));
+            await ffmpeg.run('-i', name, "-c:v", "copy", "-c:a", "aac", "-f", "mpegts", 'output.ts');
+            const data = ffmpeg.FS('readFile', 'output.ts');
+            let tsBlob = new Blob([data.buffer]);
+            let formData = new FormData();
+            formData.append('data', tsBlob, 'a,.ts')
+            postToServe(formData)
+        }
+
+        // 提交服务端
+        function postToServe(formData, ism3u8) {
+            $.ajax({
+                url: 'http://10.61.158.38/linkv_recorder',
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    var obj = eval(data);
+                    if (obj.result == 0) {
+                        const { info: { data } } = obj
+                        if (!ism3u8) {
+                            console.log('---data----', data)
+                            m3u8FileArray.push('#EXTINF:5,')
+                            m3u8FileArray.push(data)
+                        } else {
+                            console.log('-----m3u8----', data)
+                            var a = document.createElement('a');
+                            $("#m3u8").append('<a href="' + data + '">' + data + '</a><br>')
+                        }
+
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + "---" + errorThrown);
+                }
+            });
+        }
+        // 提交文件
+        function postm3u8File() {
+            m3u8FileArray.push('#EXT-X-ENDLIST')
+            let m3u8Blob = new Blob([m3u8FileArray.join('\n')], {
+                type: 'text/plain'
+            })
+            m3u8FileArray = [];
+            let formData = new FormData();
+            formData.append("data", m3u8Blob, 'a.m3u8');
+            let ism3u8 = true;
+            postToServe(formData, ism3u8)
+        }
+        // 录制
+        $('#start').click(
+            async () => {
+                isStop = false;
+                m3u8FileArray = ['#EXTM3U',
+                    "#EXT-X-VERSION:3",
+                    "#EXT-X-MEDIA-SEQUENCE:0",
+                    "#EXT-X-ALLOW-CACHE:YES",
+                    "#EXT-X-TARGETDURATION:13",
+                    "#EXT-X-DISCONTINUITY"
+                ]
+                var mediaConstraints = {
+                    audio: true,
+                    video: true
+                };
+                try {
+                    // 获取视频流
+                    let stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
+                    // 录制流
+                    streamRecord(stream);
+                    mediaRecorder.start(5000);
+                } catch (error) {
+                    console.error('media error', error);
+                }
+            })
+        // 体质录制
+        $('#stop').click(() => {
+            if (mediaRecorder) {
+                mediaRecorder.stop()
+                isStop = true;
+                postm3u8File()
+            }
+        })
+    </script>
+</body>
+
+</html>
