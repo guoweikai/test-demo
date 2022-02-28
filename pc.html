@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pc</title>
+</head>
+
+<body>
+    <script>
+        const _pc = new RTCPeerConnection()
+        console.log(_pc, 'pc')
+        _pc.onicecandidate = (e) => {
+            console.log(e, "onicecandidate")
+        }
+        _pc.onicegatheringstatechange = (e) => {
+            console.log(e, "onicegatheringstatechange")
+        }
+        _pc.onsignalingstatechange = (e) => {
+            console.log(e, "onsignalingstatechange")
+        }
+        _pc.onconnectionstatechange = (e) => {
+            console.log(e, "onconnectionstatechange")
+        }
+        _pc.onnegotiationneeded = (e) => {
+            console.log(e, 'onnegotiationneeded')
+            _pc.createOffer().then((res)=>{
+                console.log(res,'sdp')
+            }).catch((error)=>{})
+        }
+        //  获取视频流api 
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
+            console.log(stream.getTracks())
+            for (let track of stream.getTracks()) {
+                console.log('pc.addTransceiver')
+                _pc.addTransceiver(
+                    track,
+                    {
+                        direction: 'sendonly',
+                        streams: [stream],
+                        // sendEncodings: encodings
+                    })
+
+            }
+
+        }).catch((err) => { })
+    </script>
+</body>
+
+</html>
