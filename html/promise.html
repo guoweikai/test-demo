@@ -1,0 +1,47 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-02-15 16:57:53
+ * @LastEditTime: 2023-02-16 17:11:04
+ * @LastEditors: bogon
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/html/promise.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let promise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve()
+                console.log(1)
+            }, 1000)
+            setTimeout(() => {
+                console.log(2)
+            })
+            const newPromise = new Promise(() => {
+                console.log(3)
+            })
+            console.log(4)
+            return newPromise
+
+        })
+
+        promise.then(() => {
+            console.log(5)
+
+        }).then(() => {
+            console.log(6)
+        })
+
+    </script>
+</body>
+
+</html>

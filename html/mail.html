@@ -1,0 +1,138 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-11-08 15:56:49
+ * @LastEditTime: 2022-12-07 16:51:29
+ * @LastEditors: bogon
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/html/mail.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vpn</title>
+    <style>
+        .v321-email {
+            margin: 20px;
+            width: 712px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            background: url(https://vvork-cdn-bj.vvork.net/mbti/interestestemail);
+            background-size: cover;
+            font-family: PingFangSC-Medium, PingFangSC-Regular;
+            flex-direction: column;
+            padding: 18px 25px;
+            box-sizing: border-box;
+        }
+
+        .v321-email-main {
+            margin-top: 34px;
+            flex: 1;
+        }
+
+        .v321-email-name {
+            height: 25px;
+            color: rgba(0, 0, 0, 1);
+            font-size: 18px;
+            line-height: 25px;
+            height: 25px;
+            font-family: PingFangSC-Medium, PingFang SC;
+            font-weight: 500;
+        }
+
+        .v321-email-content {
+            color: #303030;
+            font-size: 16px;
+            text-align: left;
+            line-height: 30px;
+            display: block;
+            margin-top: 24px;
+        }
+
+        .v321-email-content p {
+            margin: 0;
+            padding: 0;
+            color: #797979;
+        }
+
+        .v321-email-link {
+            font-size: 18px;
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .v321-email-link a {
+            background-color: rgba(76, 122, 255, 1);
+            border-radius: 30px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 1);
+            font-size: 18px;
+            padding: 18px 48px;
+            text-decoration: none;
+        }
+
+        .v321-email-team {
+            height: 25px;
+            line-height: 25px;
+            font-size: 18px;
+            text-align: right;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #393939;
+            margin-bottom: 2px;
+
+        }
+
+        a {
+            font-size: 16px;
+            font-family: PingFangSC-Regular, PingFang SC;
+            font-weight: 400;
+            /* color: #525252; */
+            color: #0C4AFF
+        }
+
+        .mail-border {
+            height: 1px;
+            background-color: #979797;
+            margin-top: 17px;
+        }
+
+        .mail-footer {
+            margin-top:20px;
+            display: flex;
+            justify-content: space-between;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="v321-email">
+        <div class="v321-email-main">
+            <div class="v321-email-name">hello,</div>
+            <div class="mail-border"></div>
+            <div class="v321-email-content">
+                <p> We hope you can use the link below to directly check your history result：</p>
+                <a href="%s" target="_blank">%s</a>
+            </div>
+        </div>
+        <div class="mail-footer">
+            <div class="mail-footer-left"></div>
+            <div class="mail-footer-right">
+                <div class="v321-email-team">Best regards</div>
+                <div class="v321-email-team">Interestest</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

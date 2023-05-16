@@ -1,0 +1,47 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-04-12 16:40:19
+ * @LastEditTime: 2022-04-12 16:45:15
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/demo11.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+        }
+
+        div:hover {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div">
+    </div>
+</body>
+<script>
+    const div = document.getElementById("div")
+    div.onmouseenter = function () {
+        console.log("进入")
+    }
+    div.onmouseleave = function () {
+        console.log("移除")
+    }
+    div.onmousemove = function () {
+        console.log("哈哈")
+    }
+</script>
+
+</html>

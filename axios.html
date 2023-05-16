@@ -1,0 +1,80 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-11 10:59:14
+ * @LastEditTime: 2023-05-15 21:41:41
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/axios.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //手写 promise
+        //es5 多级继承
+        //es6 继承
+
+        class OldPhone {
+            aa = 1
+            constructor(price) {
+                this.price = price;
+                console.log('oldPhone this',this)
+            }
+            oldCall() {
+                console.log("我可以打老的电话", this.aa)
+            }
+        }
+
+
+        class Phone extends OldPhone {
+            constructor(brand, price) {
+                super(price)
+                console.log('Phone this', this)
+                this.brand = brand;
+            }
+            brand = "111"
+            call() {
+                console.log("我可以打电话")
+            }
+        }
+
+
+
+        class SmartPhone extends Phone {
+            constructor(brand, price, color, size) {
+                super(brand, price);
+                console.log('SmartPhone this', this)
+                this.color = color;
+                this.size = size;
+            }
+            photo() {
+                console.log("拍照")
+            }
+            playGame() {
+                console.log("玩游戏")
+            }
+        }
+
+        const xiaomi = new SmartPhone('小米', 799, '黑色', '4.7')
+        console.log('xiaomi', xiaomi)
+        xiaomi.oldCall();
+
+
+
+        let  bb ={a:1}
+        Object.setPrototypeOf(bb,{b:1})
+        console.log("bb",bb)
+        console.log(bb.b)
+
+    </script>
+</body>
+
+</html>

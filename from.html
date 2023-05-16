@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <form name='test'  action="./02-index.php" method="post">
+    <input type="file" name="weqe">
+    <input type="submit" value="提交">
+  </form>
+
+  <script>
+    var input = document.querySelector('input[type=file]');
+    var form = document.test;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var file = input.files[0];
+      console.log(file,"dddd")
+    //   var fd = new FormData();
+    //   var xhr = new XMLHttpRequest();
+    //   fd.append('file', file);
+    //   xhr.open('post', './02-index.php');
+    //   xhr.send(fd);
+    });
+    
+  </script>
+</body>
+</html>
