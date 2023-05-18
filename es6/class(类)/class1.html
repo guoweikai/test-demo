@@ -1,0 +1,43 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-16 10:51:39
+ * @LastEditTime: 2023-05-16 11:11:29
+ * @LastEditors: bogon
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/class 相关.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子类中可以不用调用父类的构造函数吗?是的可以的,只要不写构造器函数</title>
+</head>
+
+<body>
+    <script>
+        // 子类只要不写构造函数,默认就会调用父类的构造函数的
+        class Phone {
+            constructor({ size }) {
+                console.log(this)
+                this.size = size;
+            }
+            call() {
+                console.log("打电话")
+            }
+        }
+
+        class SmartPhone extends Phone {
+            play() {
+                console.log("打游戏")
+            }
+        }
+
+        const xiaomi = new SmartPhone({ size: '5.5' })
+        console.log(xiaomi)
+    </script>
+</body>
+
+</html>

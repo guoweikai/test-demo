@@ -1,0 +1,31 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-16 17:43:48
+ * @LastEditTime: 2023-05-16 17:47:27
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/promise2.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调用 Promise.resolve 方法 传入一个 Promise 对象, 调用 传入 Promise 对象的 reject , 实例对象的类型是什么呢?</title>
+</head>
+
+<body>
+    <script>
+        const p = Promise.resolve(
+            new Promise((resolve, reject) => {
+                reject("wuwuw")
+            })
+        )
+        console.log('p', p)
+        // 状态会变成 reject
+    </script>
+</body>
+
+</html>

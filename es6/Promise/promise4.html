@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-16 18:31:14
+ * @LastEditTime: 2023-05-16 20:27:32
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/promise/promise4.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promsie 在链式调用参数的传递是如何传递, 是如何做到异常穿透的</title>
+</head>
+
+<body>
+
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            reject("錯誤")
+        })
+
+        p1.then((value) => {
+            console.log("value1", value)
+            return value
+        }).then((value) => {
+            console.log('value2', value)
+        }).catch((error)=>{
+            console.log(error)
+        })
+
+    </script>
+
+</body>
+
+</html>

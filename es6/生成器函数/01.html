@@ -1,0 +1,70 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-18 10:42:38
+ * @LastEditTime: 2023-05-18 11:07:49
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/生成器函数/01.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成器函数的基本使用</title>
+</head>
+
+<body>
+    <script>
+        // 调用 myGenerate 函数默认回调为 迭代器对象, yield 的值为调用 next() 的返回值
+        function* myGenerator() {
+            const result1 = yield 111
+        }
+        console.log(myGenerator().next())
+        // 生成器函数 和 Promise 结合
+
+        function someAsyncTask1() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('Task 1 completed');
+                }, 1000);
+            });
+        }
+
+        function someAsyncTask2() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('Task 2 completed');
+                }, 2000);
+            });
+        }
+
+        function* myGenerator1() {
+            try {
+                // 结果为 Promise 执行的结构
+                const result1 = yield someAsyncTask1();
+                console.log(result1);
+
+                const result2 = yield someAsyncTask2();
+                console.log(result2);
+
+                // ...
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        const generator = myGenerator1();
+        const promise = generator.next().value;
+
+        promise.then((result1) => {
+            // 调用 next 传入参数是 yield 的返回值
+            generator.next(result1).value.then((result2) => {
+                generator.next(result2);
+            });
+        });
+    </script>
+</body>
+
+</html>

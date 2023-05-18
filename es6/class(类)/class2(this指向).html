@@ -1,0 +1,84 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-16 11:11:55
+ * @LastEditTime: 2023-05-16 14:47:28
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/class2.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在 class中无论继承层级多深 this 用于是 实例对象</title>
+</head>
+
+<body>
+    <script>
+        class OldPhone {
+            // 构造函数
+            constructor({ size }) {
+                // 实例对象
+                this.size = size;
+                console.log(this)
+            }
+            call() {
+                // 实例对象
+                console.log(this)
+                console.log("oldPhone 只能打电话")
+            }
+        }
+        class Phone extends OldPhone {
+            message() {
+                console.log("Phone 可以发短信")
+            }
+        }
+
+        class SmartPhone extends Phone {
+            playGame() {
+                console.log("Smart Phone 可以玩游戏")
+            }
+        }
+
+        const xiaomi = new SmartPhone({ size: '5.5' })
+        console.log(xiaomi)
+
+        function timeout1() {
+            return Promise.resolve(
+                setTimeout(() => {
+                    console.log("timeout1")
+                }, 1000)
+            )
+
+        }
+        function timeout2() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                    console.log("timeout2")
+                }, 1000)
+            })
+
+        }
+
+
+        async function aa() {
+            try {
+                await timeout1()
+                await timeout2()
+            } catch (error) {
+
+            }
+            return 2
+
+        }
+
+        aa()
+
+    </script>
+</body>
+
+</html>

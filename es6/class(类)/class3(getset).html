@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-18 11:44:33
+ * @LastEditTime: 2023-05-18 11:47:56
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/class(类)/class3.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class 中的 get set 属性的使用</title>
+</head>
+
+<body>
+    <script>
+        class Phone {
+            _value = 1
+
+            get value() {
+                return this._value
+
+            }
+            set value(value) {
+                this._value = value
+            }
+
+        }
+        const xiaomi = new Phone()
+        console.log(xiaomi.value)
+        console.log(xiaomi.value = 2)
+    </script>
+</body>
+
+</html>

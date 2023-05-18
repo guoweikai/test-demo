@@ -1,0 +1,45 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-17 21:48:02
+ * @LastEditTime: 2023-05-17 21:49:37
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/iterator/iterator.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = {
+            data: [1, 2, 3],
+            currentIndex: 0,
+            [Symbol.iterator]() {
+                const self = this;
+                return {
+                    next() {
+                        if (self.currentIndex < self.data.length) {
+                            return { value: self.data[self.currentIndex++], done: false };
+                        } else {
+                            return { value: undefined, done: true };
+                        }
+                    }
+                };
+            }
+        };
+
+        console.log(obj)
+        for (const iterator of obj) {
+            console.log(iterator)
+        }
+    </script>
+</body>
+
+</html>l

@@ -1,0 +1,30 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-05-17 20:56:55
+ * @LastEditTime: 2023-05-17 21:04:02
+ * @LastEditors: localhost
+ * @Description: In User Settings Edit
+ * @FilePath: /test-demo/.vscode/es6/map/map1.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>将一个 Map 实例对象转化为普通对象</title>
+</head>
+
+<body>
+    <script>
+        const value = [["key", "value"], ["key1", "value1"], ["key2", "value2"], ["key3", "value3"]]
+        const myMap = new Map(value)
+        console.log(myMap)
+        console.log(myMap.entries())
+        console.log(Object.fromEntries(myMap.entries()))
+        
+    </script>
+</body>
+
+</html>
